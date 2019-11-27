@@ -18,10 +18,18 @@ def pupper_select(slct:str):
     mypups = mycursor.fetchall()
     return mypups
 
-def breed_insert(slct:str):
-    select_stmt = "SELECT * FROM BREED Where " + slct
-    mycursor = mydb.cursor()
-    mycursor.execute(select_stmt)
-    mybreeds = mycursor.fetchall()
-    return mybreeds
+def breed_insert(inst:str):
+    my_db = open_conn()
+    insert_stmt = "INSERT INTO BREED (name, temperament, coat) VALUES" + inst
+    mycursor = my_db.cursor()
+    mycursor.execute(insert_stmt)
+    my_db.commit()
+    return mycursor.rowcount
 
+def pupper_adopt(delt:str):
+    my_db = open_conn()
+    delete_stmt = "DELETE FROM PUPPER WHERE ID = " + delt
+    mycursor = my_db.cursor()
+    mycursor.execute(delete_stmt)
+    my_db.commit()
+    return mycursor.rowcount
